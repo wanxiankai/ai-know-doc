@@ -1,8 +1,12 @@
 import { shadow } from "@/styles/utils"
 import Image from "next/image"
 import Link from "next/link"
+import { Button } from "./ui/button"
+import { ModeToggle } from "./DarkModeToggle"
+import LogoutButton from "./LogoutButton"
 
 function Header() {
+    const user = 1
     return (
         <header
             className="bg-popover relative flex items-center justify-between h-24 w-full px-3 sm:px-8"
@@ -18,6 +22,28 @@ function Header() {
                     priority />
                 <h1 className=" text-2xl font-semibold leading-6">AI Know Doc</h1>
             </Link>
+
+            <div className="flex gap-4">
+                {
+                    user ? (
+                        <LogoutButton />
+                    ) : (
+                        <>
+                            <Button
+                                className="hidden sm:block"
+                                asChild>
+                                <Link href="/sign-up">
+                                    Sign Up
+                                </Link>
+                            </Button>
+                            <Button asChild variant="outline">
+                                <Link href="/login">Login</Link>
+                            </Button>
+                        </>
+                    )
+                }
+                <ModeToggle />
+            </div>
         </header>
     )
 }
