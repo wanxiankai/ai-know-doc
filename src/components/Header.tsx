@@ -4,9 +4,10 @@ import Link from "next/link"
 import { Button } from "./ui/button"
 import { ModeToggle } from "./DarkModeToggle"
 import LogoutButton from "./LogoutButton"
+import { getUser } from "@/auth/server"
 
-function Header() {
-    const user = 1
+async function Header() {
+    const user = await getUser();
     return (
         <header
             className="bg-popover relative flex items-center justify-between h-24 w-full px-3 sm:px-8"
