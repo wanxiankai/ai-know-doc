@@ -6,6 +6,8 @@ import { Label } from './ui/label';
 import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
 import Link from 'next/link';
+import { toast } from 'sonner';
+import { loginAction, signUpAction } from '@/actions/users';
 
 interface Props {
     type: 'login' | 'signUp'
@@ -19,6 +21,23 @@ function AuthForm({ type }: Props) {
 
     const handleSubmit = (formData: FormData) => {
         console.log(formData)
+        startTransition(async () => {
+            const email = formData.get('email') as string;
+            const password = formData.get('password') as string;
+
+            let errorMessage;
+            if (isLoginForm) {
+                errorMessage = (await loginAction(email, password)).errorMessage as string;
+            } else {
+                errorMessage = (await signUpAction(email, password)).errorMessage as string;
+            }
+            if (errorMessage) {
+                toast.error(errorMessage)
+            } else {
+                isLoginForm ? toast.success('Login successful') : toast.success('Sign up successful', { description: 'Please check your email to verify your account' })
+                router.replace('/')
+            }
+        })
     }
 
     return (
