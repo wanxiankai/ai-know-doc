@@ -3,8 +3,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "./ui/button"
 import { ModeToggle } from "./DarkModeToggle"
-import LogOutButton from "./LogoutButton"
+
 import { getUser } from "@/auth/server"
+import LogOutButton from "./LogOutButton"
 
 async function Header() {
     const user = await getUser();
