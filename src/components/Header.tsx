@@ -6,6 +6,7 @@ import { ModeToggle } from "./DarkModeToggle"
 
 import { getUser } from "@/auth/server"
 import LogOutButton from "./LogOutButton"
+import { SidebarTrigger } from "./ui/sidebar"
 
 async function Header() {
     const user = await getUser();
@@ -14,6 +15,7 @@ async function Header() {
             className="bg-popover relative flex items-center justify-between h-24 w-full px-3 sm:px-8"
             style={{ boxShadow: shadow }}
         >
+            <SidebarTrigger className="absolute left-1 top-1" />
             <Link href='/' className="flex items-center space-x-2">
                 <Image
                     src='/logo.png'
