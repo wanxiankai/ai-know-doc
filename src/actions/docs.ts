@@ -49,3 +49,24 @@ export const createDocAction = async (docId: string) => {
         return handleError(error)
     }
 }
+
+export const deleteDocAction = async (docId: string) => {
+    try {
+        const user = await getUser()
+        if (!user) {
+            return { errorMessage: "You must be logged in to create a document" }
+        }
+        
+        await prisma.document.delete({
+            where: {
+                id: docId,
+                authorId: user.id,
+            },
+        })
+
+        return { errorMessage: null }
+
+    } catch (error) {
+        return handleError(error)
+    }
+}
