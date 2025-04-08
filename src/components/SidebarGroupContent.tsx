@@ -1,9 +1,9 @@
 'use client'
 import { Document } from '@prisma/client'
-import React, { use, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { SidebarGroupContent as SidebarGroupContentShadCN, SidebarMenu, SidebarMenuItem } from './ui/sidebar'
 import { Input } from './ui/input'
-import { Delete, SearchIcon } from 'lucide-react'
+import { SearchIcon } from 'lucide-react'
 import Fuse from 'fuse.js'
 import SelectDocButton from './SelectDocButton'
 import DeleteDocButton from './DeleteDocButton'
@@ -13,7 +13,6 @@ type Props = {
 }
 
 function SidebarGroupContent({ docs }: Props) {
-    console.log("docs", docs)
     const [searchText, setSearchText] = useState<string>("")
     const [localDocs, setLocalDocs] = useState<Document[]>(docs)
 
