@@ -17,7 +17,7 @@ export async function createClient() {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options)
             )
-          } catch {}
+          } catch { }
         },
       },
     }
@@ -26,15 +26,12 @@ export async function createClient() {
 }
 
 export async function getUser() {
-  const client = await createClient()
-  const {
-    data: { user },
-    error,
-  } = await client.auth.getUser()
-  if (error) {
-    console.error('Error fetching user:', error)
+  const { auth } = await createClient()
+  const userObject = await auth.getUser()
+  if (userObject.error) {
+    console.log('Error fetching user:', userObject.error)
     return null
   }
-  return user
+  return userObject.data.user
 }
 
