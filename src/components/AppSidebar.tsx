@@ -27,22 +27,25 @@ async function AppSidebar() {
 
     return (
         <Sidebar>
-            <SidebarContent className="custom-scrollbar">
-                <SidebarGroup>
-                    <SidebarGroupLabel className="my-2 text-lg">
-                        {user ? "Your Documents" :
-                            (
-                                <p>
-                                    <Link href='/login' className="underline">
-                                        Login
-                                    </Link>{" "}
-                                    to view your documents
-                                </p>
-                            )}
-                    </SidebarGroupLabel>
-                    {user && <SidebarGroupContent docs={documents} />}
-                </SidebarGroup>
-            </SidebarContent>
+            {user ?
+                (<SidebarContent className="custom-scrollbar">
+                    <SidebarGroup>
+                        <SidebarGroupLabel className="my-2 text-lg">
+                            {user && "Your Documents"}
+                        </SidebarGroupLabel>
+                        {user && <SidebarGroupContent docs={documents} />}
+                    </SidebarGroup>
+                </SidebarContent>)
+                : (
+                    <div className="h-full flex flex-col items-center justify-center">
+                        <p className="text-center">
+                            <Link href='/login' className="underline">
+                                Login
+                            </Link>{" "}
+                            to view your documents
+                        </p>
+                    </div>
+                )}
         </Sidebar>
     )
 }
