@@ -46,7 +46,7 @@ function SelectDocButton({ doc }: Props) {
         <p className="w-full overflow-hidden truncate text-ellipsis whitespace-nowrap">
           {docText}
         </p>
-        <p className="text-muted-foreground text-xs">
+        <p className="text-muted-foreground text-xs" suppressHydrationWarning >
           {doc.updatedAt.toLocaleDateString()}
         </p>
       </Link>
