@@ -1,7 +1,7 @@
 # AI Know Doc
 
 This is a web application that can use the ai to answer questions about the documents you write.
-Now it uses the deepseek to index the documents and the langchain to answer the questions.
+Now it uses the deepseek to answer the questions.
 
 ## Features
 
