@@ -3,10 +3,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "./ui/button"
 import { ModeToggle } from "./DarkModeToggle"
-
 import { getUser } from "@/auth/server"
 import { SidebarTrigger } from "./ui/sidebar"
-import LogOutButton from "@/components/LogOutButton"
+import LogoutButton from "./LogOutButton"
 
 async function Header() {
     const user = await getUser();
@@ -30,7 +29,7 @@ async function Header() {
             <div className="flex gap-4">
                 {
                     user ? (
-                        <LogOutButton />
+                        <LogoutButton />
                     ) : (
                         <>
                             <Button
