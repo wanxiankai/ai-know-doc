@@ -26,14 +26,20 @@ Now it uses the deepseek to index the documents and the langchain to answer the 
     pnpm install
 ```
 
-3. Create a `.env` file in the root directory and add the following environment variables:
+3. Create a `.env.local` file in the root directory and add the following environment variables:
 
 ```bash
+    # The database connection string
     DATABASE_URL= 
+    # The Supabase URL and anon key
     SUPABASE_URL=
+    # The Supabase anon key
     SUPABASE_ANON_KEY=
+    # The Base URL for the application
     NEXT_PUBLIC_BASE_URL=http://localhost:3000
+    # The Deepseek API key
     SILICONFLOW_API_KEY=
+    # The Deepseek API URL
     SILICONFLOW_API_URL= 
 ```
 
