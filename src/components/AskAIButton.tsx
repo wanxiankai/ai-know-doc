@@ -15,13 +15,15 @@ import { Textarea } from './ui/textarea'
 import { ArrowUpIcon } from 'lucide-react'
 import { askAIAboutDocumentsAction } from '@/actions/docs'
 import "@/styles/ai-response.css"
+import { Document } from '@prisma/client'
 
 
 type Props = {
-    user: User | null
+    user: User | null,
+    doc: Document | null
 }
 
-function AskAIButton({ user }: Props) {
+function AskAIButton({ user, doc }: Props) {
     const router = useRouter()
     const [isPending, startTransition] = useTransition()
     const [open, setOpen] = useState(false)
@@ -64,7 +66,7 @@ function AskAIButton({ user }: Props) {
         setTimeout(scrollToBottom, 100)
 
         startTransition(async () => {
-            const response = await askAIAboutDocumentsAction(newQuestions, responses)
+            const response = await askAIAboutDocumentsAction(newQuestions, responses, doc)
             setResponses((prev) => [...prev, response]);
             setTimeout(scrollToBottom, 100)
         })

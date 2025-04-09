@@ -4,6 +4,7 @@ import { getUser } from "@/auth/server"
 import { prisma } from "@/lib/prisma"
 import { handleError } from "@/lib/utils"
 import openai from "@/openai";
+import { Document } from "@prisma/client";
 import { ChatCompletionMessageParam } from "openai/resources/index.mjs";
 
 export const updateDocAction = async (docId: string, text: string) => {
@@ -73,35 +74,39 @@ export const deleteDocAction = async (docId: string) => {
     }
 }
 
-export const askAIAboutDocumentsAction = async (questions: string[], responses: string[]) => {
+export const askAIAboutDocumentsAction = async (questions: string[], responses: string[], doc: Document | null) => {
     const user = await getUser();
     if (!user) throw new Error("You must be logged in to ask AI questions");
 
-    const docs = await prisma.document.findMany({
-        where: {
-            authorId: user.id,
-        },
-        orderBy: {
-            createdAt: "desc",
-        },
-        select: {
-            text: true,
-            createdAt: true,
-            updatedAt: true,
-        },
-    })
-    if (docs.length === 0) {
+    if (!doc) {
         return "You don't have any documents yet.";
     }
 
-    const formattedDocs = docs.map(
-        doc =>
-            `
-        Text: ${doc.text}
-        Created at: ${doc.createdAt}
-        Last updated: ${doc.updatedAt}
-        `.trim()
-    ).join("\n")
+    // const docs = await prisma.document.findMany({
+    //     where: {
+    //         authorId: user.id,
+    //     },
+    //     orderBy: {
+    //         createdAt: "desc",
+    //     },
+    //     select: {
+    //         text: true,
+    //         createdAt: true,
+    //         updatedAt: true,
+    //     },
+    // })
+    // if (docs.length === 0) {
+    //     return "You don't have any documents yet.";
+    // }
+
+    // const formattedDocs = docs.map(
+    //     doc =>
+    //         `
+    //     Text: ${doc.text}
+    //     Created at: ${doc.createdAt}
+    //     Last updated: ${doc.updatedAt}
+    //     `.trim()
+    // ).join("\n")
 
     const messages: ChatCompletionMessageParam[] = [
         {
@@ -119,7 +124,7 @@ export const askAIAboutDocumentsAction = async (questions: string[], responses: 
                   <p dangerouslySetInnerHTML={{ __html: YOUR_RESPONSE }} />
             
                   Here are the user's documents:
-                  ${formattedDocs}
+                  ${doc.text}
                   `,
         },
     ];
