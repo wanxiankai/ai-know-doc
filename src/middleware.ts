@@ -36,6 +36,7 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
+  // handle auth routes
   const isAuthRoute = request.nextUrl.pathname === "/login" || request.nextUrl.pathname === "/sign-up";
   if (isAuthRoute) {
     const {
